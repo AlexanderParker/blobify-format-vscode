@@ -1,0 +1,29 @@
+{
+    "Context Section": {
+        "prefix": "ctx",
+        "body": [
+            "[${1:context-name}]",
+            "# ${2:Description}",
+            "$0"
+        ],
+        "description": "Create a new context section"
+    },
+    "Docs Only Context": {
+        "prefix": "docs",
+        "body": [
+            "[docs-only]",
+            "# Documentation files only",
+            "-**",
+            "+*.md",
+            "+docs/**"
+        ]
+    },
+    "Python Signatures": {
+        "prefix": "sigs",
+        "body": [
+            "@filter=signatures:^\\s*(class\\s+\\w+.*:|def\\s+\\w+.*:|async\\s+def\\s+\\w+.*:)",
+            "@no-line-numbers",
+            "+*.py"
+        ]
+    }
+}

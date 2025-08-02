@@ -3,27 +3,144 @@
 	"name": "Blobify",
 	"patterns": [
 		{
-			"include": "#keywords"
+			"include": "#comments"
 		},
 		{
-			"include": "#strings"
+			"include": "#contexts"
+		},
+		{
+			"include": "#switches"
+		},
+		{
+			"include": "#include-patterns"
+		},
+		{
+			"include": "#exclude-patterns"
 		}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.blobify",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.blobify",
-			"begin": "\"",
-			"end": "\"",
+		"comments": {
 			"patterns": [
 				{
-					"name": "constant.character.escape.blobify",
-					"match": "\\\\."
+					"name": "comment.line.number-sign.blobify",
+					"match": "^\\s*#.*$"
+				}
+			]
+		},
+		"contexts": {
+			"patterns": [
+				{
+					"name": "entity.name.section.blobify",
+					"match": "^\\s*\\[([^\\]]+)\\]\\s*$",
+					"captures": {
+						"1": {
+							"name": "string.quoted.double.blobify"
+						}
+					}
+				}
+			]
+		},
+		"switches": {
+			"patterns": [
+				{
+					"name": "keyword.control.blobify",
+					"match": "^\\s*@(filter)=([^:]+):(.+)\\s*$",
+					"captures": {
+						"1": {
+							"name": "variable.parameter.blobify"
+						},
+						"2": {
+							"name": "entity.name.function.blobify"
+						},
+						"3": {
+							"name": "string.regexp.blobify",
+							"patterns": [
+								{
+									"include": "#regex-patterns"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "keyword.control.blobify",
+					"match": "^\\s*@([a-zA-Z-_]+)(?:=(.+))?\\s*$",
+					"captures": {
+						"1": {
+							"name": "variable.parameter.blobify"
+						},
+						"2": {
+							"name": "string.unquoted.blobify"
+						}
+					}
+				}
+			]
+		},
+		"regex-patterns": {
+			"patterns": [
+				{
+					"name": "constant.character.escape.regex.blobify",
+					"match": "\\\\[\\\\/.^$*+?()\\[\\]{}|]"
+				},
+				{
+					"name": "keyword.operator.quantifier.regex.blobify",
+					"match": "[*+?]|\\{\\d+(,\\d*)?\\}"
+				},
+				{
+					"name": "keyword.operator.or.regex.blobify",
+					"match": "\\|"
+				},
+				{
+					"name": "keyword.operator.anchor.regex.blobify",
+					"match": "\\^|\\$"
+				},
+				{
+					"name": "constant.other.character-class.regex.blobify",
+					"match": "\\\\[dDwWsSbBnrtfv]"
+				},
+				{
+					"name": "keyword.operator.character-class.regex.blobify",
+					"match": "\\[([^\\]\\\\]|\\\\.)*\\]"
+				},
+				{
+					"name": "meta.group.regex.blobify",
+					"begin": "\\(",
+					"end": "\\)",
+					"patterns": [
+						{
+							"include": "#regex-patterns"
+						}
+					]
+				},
+				{
+					"name": "constant.language.python-keywords.regex.blobify",
+					"match": "\\b(def|class|import|from|return|yield|async|await)\\b"
+				}
+			]
+		},
+		"include-patterns": {
+			"patterns": [
+				{
+					"name": "markup.inserted.blobify",
+					"match": "^\\s*\\+(.+)\\s*$",
+					"captures": {
+						"1": {
+							"name": "string.regexp.blobify"
+						}
+					}
+				}
+			]
+		},
+		"exclude-patterns": {
+			"patterns": [
+				{
+					"name": "markup.deleted.blobify",
+					"match": "^\\s*-(.+)\\s*$",
+					"captures": {
+						"1": {
+							"name": "string.regexp.blobify"
+						}
+					}
 				}
 			]
 		}
