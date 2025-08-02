@@ -1,0 +1,25 @@
+{
+  "name": "blobify-format",
+  "displayName": "blobify-format",
+  "description": "Format .blobify files (used by the python blobify module)",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "blobify",
+      "aliases": ["Blobify", "blobify"],
+      "extensions": [".blobify"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "blobify",
+      "scopeName": "source.blobify",
+      "path": "./syntaxes/blobify.tmLanguage.json"
+    }]
+  }
+}
