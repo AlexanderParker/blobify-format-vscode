@@ -7,7 +7,7 @@
     </picture>
     Blobify Format for VS Code
   </h1>
-  <p><em>Language support and formatting for `.blobify` configuration files used by the [Blobify](https://github.com/AlexanderParker/blobify) tool.</em></p>
+  <p><em>VSCode language support and formatting for `.blobify` configuration files used by the [Blobify](https://github.com/AlexanderParker/blobify) tool.</em></p>
 </div>
 
 ## Features
