@@ -403,7 +403,7 @@ function validateBlobifyFile(document: vscode.TextDocument, diagnostics?: vscode
           diagnosticItems.push(new vscode.Diagnostic(new vscode.Range(i, 0, i, line.length), "Empty context name", vscode.DiagnosticSeverity.Error));
         } else if (contextNames.has(contextName)) {
           diagnosticItems.push(
-            new vscode.Diagnostic(new vscode.Range(i, 0, i, line.length), `Duplicate context name: ${contextName}`, vscode.DiagnosticSeverity.Warning)
+            new vscode.Diagnostic(new vscode.Range(i, 0, i, line.length), `Duplicate context name: ${contextName}`, vscode.DiagnosticSeverity.Error)
           );
         } else {
           contextNames.add(contextName);
@@ -439,7 +439,7 @@ function validateBlobifyFile(document: vscode.TextDocument, diagnostics?: vscode
           diagnosticItems.push(new vscode.Diagnostic(new vscode.Range(i, 0, i, line.length), "Empty context name", vscode.DiagnosticSeverity.Error));
         } else if (contextNames.has(contextName)) {
           diagnosticItems.push(
-            new vscode.Diagnostic(new vscode.Range(i, 0, i, line.length), `Duplicate context name: ${contextName}`, vscode.DiagnosticSeverity.Warning)
+            new vscode.Diagnostic(new vscode.Range(i, 0, i, line.length), `Duplicate context name: ${contextName}`, vscode.DiagnosticSeverity.Error)
           );
         } else {
           contextNames.add(contextName);
