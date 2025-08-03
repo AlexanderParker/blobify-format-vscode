@@ -9,7 +9,10 @@
 			"include": "#contexts"
 		},
 		{
-			"include": "#switches"
+			"include": "#context-inheritance"
+		},
+		{
+			"include": "#options"
 		},
 		{
 			"include": "#include-patterns"
@@ -30,17 +33,46 @@
 		"contexts": {
 			"patterns": [
 				{
-					"name": "entity.name.section.blobify",
-					"match": "^\\s*\\[([^\\]]+)\\]\\s*$",
+					"match": "^\\s*(\\[)([^\\]\\:]+)(\\])\\s*$",
 					"captures": {
 						"1": {
-							"name": "string.quoted.double.blobify"
+							"name": "punctuation.definition.group.begin.blobify"
+						},
+						"2": {
+							"name": "keyword.other.group-title.blobify"
+						},
+						"3": {
+							"name": "punctuation.definition.group.end.blobify"
 						}
 					}
 				}
 			]
 		},
-		"switches": {
+		"context-inheritance": {
+			"patterns": [
+				{
+					"match": "^\\s*(\\[)([^\\]\\:]+)(:)([^\\]]+)(\\])\\s*$",
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.group.begin.blobify"
+						},
+						"2": {
+							"name": "keyword.other.group-title.blobify"
+						},
+						"3": {
+							"name": "punctuation.separator.blobify"
+						},
+						"4": {
+							"name": "variable.other.blobify"
+						},
+						"5": {
+							"name": "punctuation.definition.group.end.blobify"
+						}
+					}
+				}
+			]
+		},
+		"options": {
 			"patterns": [
 				{
 					"name": "keyword.control.blobify",
@@ -59,6 +91,30 @@
 									"include": "#regex-patterns"
 								}
 							]
+						}
+					}
+				},
+				{
+					"name": "keyword.control.blobify",
+					"match": "^\\s*@(copy-to-clipboard|debug|enable-scrubbing|output-line-numbers|output-index|output-content|output-metadata|show-excluded)=(true|false)\\s*$",
+					"captures": {
+						"1": {
+							"name": "variable.parameter.blobify"
+						},
+						"2": {
+							"name": "constant.language.boolean.blobify"
+						}
+					}
+				},
+				{
+					"name": "keyword.control.blobify",
+					"match": "^\\s*@(list-patterns)=(none|ignored|contexts)\\s*$",
+					"captures": {
+						"1": {
+							"name": "variable.parameter.blobify"
+						},
+						"2": {
+							"name": "constant.language.enum.blobify"
 						}
 					}
 				},

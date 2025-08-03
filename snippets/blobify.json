@@ -8,6 +8,24 @@
         ],
         "description": "Create a new context section"
     },
+    "Context with Inheritance": {
+        "prefix": "ctxi",
+        "body": [
+            "[${1:context-name}:${2:parent}]",
+            "# ${3:Description}",
+            "$0"
+        ],
+        "description": "Create a context section with inheritance"
+    },
+    "Context with Multiple Inheritance": {
+        "prefix": "ctxm",
+        "body": [
+            "[${1:context-name}:${2:parent1},${3:parent2}]",
+            "# ${4:Description}",
+            "$0"
+        ],
+        "description": "Create a context section with multiple inheritance"
+    },
     "Docs Only Context": {
         "prefix": "docs",
         "body": [
@@ -16,14 +34,92 @@
             "-**",
             "+*.md",
             "+docs/**"
-        ]
+        ],
+        "description": "Documentation only context"
     },
     "Python Signatures": {
         "prefix": "sigs",
         "body": [
-            "@filter=signatures:^\\s*(class\\s+\\w+.*:|def\\s+\\w+.*:|async\\s+def\\s+\\w+.*:)",
-            "@no-line-numbers",
+            "@filter=signatures:^\\\\s*(class\\\\s+\\\\w+.*:|def\\\\s+\\\\w+.*:|async\\\\s+def\\\\s+\\\\w+.*:)",
+            "@output-line-numbers=false",
             "+*.py"
-        ]
+        ],
+        "description": "Python function and class signatures filter"
+    },
+    "Backend Context with Inheritance": {
+        "prefix": "backend",
+        "body": [
+            "[backend:default]",
+            "# Backend code (inherits from default)",
+            "+*.sql",
+            "+migrations/**",
+            "@filter=functions:^\\\\s*(def\\\\s+\\\\w+.*:|async\\\\s+def\\\\s+\\\\w+.*:)"
+        ],
+        "description": "Backend context inheriting from default"
+    },
+    "Frontend Context with Inheritance": {
+        "prefix": "frontend",
+        "body": [
+            "[frontend:default]",
+            "# Frontend code (inherits from default)",
+            "+*.js",
+            "+*.vue",
+            "+*.css",
+            "+*.html"
+        ],
+        "description": "Frontend context inheriting from default"
+    },
+    "Copy to Clipboard Option": {
+        "prefix": "clip",
+        "body": "@copy-to-clipboard=true",
+        "description": "Copy output to clipboard"
+    },
+    "Debug Option": {
+        "prefix": "debug",
+        "body": "@debug=true",
+        "description": "Enable debug output"
+    },
+    "No Line Numbers": {
+        "prefix": "noline",
+        "body": "@output-line-numbers=false",
+        "description": "Disable line numbers"
+    },
+    "Content Filter": {
+        "prefix": "filter",
+        "body": "@filter=${1:name}:${2:regex}",
+        "description": "Create a content filter"
+    },
+    "Python Functions Filter": {
+        "prefix": "funcs",
+        "body": "@filter=functions:^\\\\s*(def\\\\s+\\\\w+.*:|async\\\\s+def\\\\s+\\\\w+.*:)",
+        "description": "Filter for Python function definitions"
+    },
+    "Python Classes Filter": {
+        "prefix": "classes",
+        "body": "@filter=classes:^\\\\s*class\\\\s+\\\\w+.*:",
+        "description": "Filter for Python class definitions"
+    },
+    "Python Imports Filter": {
+        "prefix": "imports",
+        "body": "@filter=imports:^\\\\s*(from\\\\s+\\\\w+.*import.*|import\\\\s+\\\\w+.*)",
+        "description": "Filter for Python import statements"
+    },
+    "Exclude All": {
+        "prefix": "exclude",
+        "body": "-**",
+        "description": "Exclude all files (useful for inheritance contexts)"
+    },
+    "Include Python": {
+        "prefix": "py",
+        "body": "+*.py",
+        "description": "Include Python files"
+    },
+    "Include Documentation": {
+        "prefix": "md",
+        "body": [
+            "+*.md",
+            "+docs/**"
+        ],
+        "description": "Include documentation files"
     }
 }

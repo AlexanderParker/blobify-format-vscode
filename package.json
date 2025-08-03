@@ -1,8 +1,8 @@
 {
   "name": "blobify-format",
   "displayName": "Blobify Format",
-  "description": "Language support and formatter for .blobify configuration files",
-  "version": "0.0.1",
+  "description": "Language support and formatter for .blobify configuration files with context inheritance",
+  "version": "0.1.0",
   "publisher": "your-publisher-name",
   "repository": {
     "type": "git",
@@ -22,7 +22,9 @@
     "blobify",
     "configuration",
     "syntax highlighting",
-    "formatter"
+    "formatter",
+    "context inheritance",
+    "AI tools"
   ],
   "activationEvents": [
     "onLanguage:blobify"
@@ -105,6 +107,11 @@
           "type": "boolean",
           "default": true,
           "description": "Enable validation of .blobify files"
+        },
+        "blobify.completion.includeInheritanceTemplates": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include context inheritance templates in completions"
         }
       }
     }
