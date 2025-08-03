@@ -1,6 +1,14 @@
-# Blobify Format for VS Code
-
-This extension provides language support and formatting for `.blobify` configuration files used by the [Blobify](https://github.com/AlexanderParker/blobify) tool.
+<div align="center">
+  <h1>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="icons/blobify-light.svg">
+      <source media="(prefers-color-scheme: light)" srcset="icons/blobify-dark.svg">
+      <img alt="Blobify" src="icons/blobify-dark.svg" width="48" height="48" style="vertical-align: middle; margin-right: 12px;">
+    </picture>
+    Blobify Format for VS Code
+  </h1>
+  <p><em>Language support and formatting for `.blobify` configuration files used by the [Blobify](https://github.com/AlexanderParker/blobify) tool.</em></p>
+</div>
 
 ## Features
 
@@ -174,8 +182,8 @@ Learn more at: https://github.com/AlexanderParker/blobify
 
 ## Contributing
 
-Issues and pull requests are welcome! Please visit our [GitHub repository](https://github.com/your-username/blobify-format).
+Issues and pull requests are welcome! Please visit our [GitHub repository](https://github.com/AlexanderParker/blobify/blobify-format).
 
 ## License
 
-This extension is licensed under the MIT License.
+[MIT License](LICENSE) - see the project repository for details.
