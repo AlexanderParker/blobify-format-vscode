@@ -1,3 +1,4 @@
 @enable-scrubbing=false
 @copy-to-clipboard=true
 +.github\workflows\publish.yml
++package.json
