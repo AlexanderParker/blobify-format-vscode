@@ -63,7 +63,7 @@ jobs:
             - See [CHANGELOG.md](./CHANGELOG.md) for details
 
             ## Installation
-            Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=${{ github.repository_owner }}.blobify-format)
+            Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=ShentonConsulting.blobify-format)
           draft: false
           prerelease: false
 
