@@ -2,7 +2,7 @@
   "name": "blobify-format",
   "displayName": "Blobify Format",
   "description": "Language support and formatter for .blobify configuration files with context inheritance",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "publisher": "ShentonConsulting",
   "icon": "icon.png",
   "galleryBanner": {

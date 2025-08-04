@@ -1,11 +1,9 @@
 name: Build, Release, and Publish
-
 on:
   push:
     tags:
-      - "v*.*.*" # Triggers on version tags like v1.0.0, v1.2.3, etc.
-  workflow_dispatch: # Allows manual trigger
-
+      - "v*.*.*"
+  workflow_dispatch:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -14,23 +12,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-
       - name: Install dependencies
         run: npm ci
-
       - name: Compile TypeScript
         run: npm run compile
-
       - name: Extract version from tag
         id: version
         run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
-
       - name: Check version matches package.json
         run: |
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
@@ -42,41 +35,21 @@ jobs:
             exit 1
           fi
           echo "Version check passed!"
-
       - name: Install vsce
         run: npm install -g @vscode/vsce@latest
-
       - name: Package extension
         run: vsce package
-
       - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
+        run: |
+          gh release create v${{ steps.version.outputs.version }} \
+            ./blobify-format-${{ steps.version.outputs.version }}.vsix \
+            --title "Blobify Format v${{ steps.version.outputs.version }}" \
+            --notes "## Changes in v${{ steps.version.outputs.version }}
+          - See [CHANGELOG.md](./CHANGELOG.md) for details
+          ## Installation
+          Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=ShentonConsulting.blobify-format)"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Blobify Format v${{ steps.version.outputs.version }}
-          body: |
-            ## Changes in v${{ steps.version.outputs.version }}
-
-            - See [CHANGELOG.md](./CHANGELOG.md) for details
-
-            ## Installation
-            Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=ShentonConsulting.blobify-format)
-          draft: false
-          prerelease: false
-
-      - name: Upload VSIX to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./blobify-format-${{ steps.version.outputs.version }}.vsix
-          asset_name: blobify-format-${{ steps.version.outputs.version }}.vsix
-          asset_content_type: application/zip
-
       - name: Publish to VS Code Marketplace
         run: vsce publish -p ${{ secrets.VSCE_PAT }}
         env:
