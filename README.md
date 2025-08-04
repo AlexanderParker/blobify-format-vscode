@@ -1,10 +1,6 @@
 <div align="center">
   <h1>
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="icons/blobify-light.svg">
-      <source media="(prefers-color-scheme: light)" srcset="icons/blobify-dark.svg">
-      <img alt="Blobify" src="icons/blobify-dark.svg" width="48" height="48" style="vertical-align: middle; margin-right: 12px;">
-    </picture>
+  <img alt="Blobify" src="icon.png" width="48" height="48" style="vertical-align: middle; margin-right: 12px;">
     Blobify Format for VS Code
   </h1>
 </div>
