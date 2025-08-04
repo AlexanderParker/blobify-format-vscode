@@ -5,6 +5,14 @@
 
 VSCode language support and formatting for `.blobify` configuration files used by the [Blobify](https://github.com/AlexanderParker/blobify) tool.
 
+You can install blobify with python using:
+
+```
+pip install blobify
+```
+
+Note: Installing blobify is not a prerequisite to use this code formatting extension, however if you're working with blobify-enabled projects then it is recommended to use it.
+
 ## Features
 
 - **Syntax Highlighting**: Full syntax highlighting for .blobify files including:
