@@ -1,9 +1,7 @@
-<div align="center">
-  <h1>
+<h1>
   <img alt="Blobify" src="icon.png" width="48" height="48" style="vertical-align: middle; margin-right: 12px;">
     Blobify Format for VS Code
-  </h1>
-</div>
+</h1>
 
 VSCode language support and formatting for `.blobify` configuration files used by the [Blobify](https://github.com/AlexanderParker/blobify) tool.
 
