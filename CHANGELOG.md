@@ -2,7 +2,7 @@
 All notable changes to the "blobify-format" extension will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [1.1.0] - 2025-08-05
+## [1.1.0] - 2025-08-09
 - Update support for Blobify 1.1.0
 - Improved example snippets and regex explainer
 - Add autocomplete for context inheritance
