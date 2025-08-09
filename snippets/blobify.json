@@ -4,6 +4,7 @@
         "body": [
             "[${1:context-name}]",
             "# ${2:Description}",
+            "## ${3:LLM instruction}",
             "$0"
         ],
         "description": "Create a new context section"
@@ -13,6 +14,7 @@
         "body": [
             "[${1:context-name}:${2:parent}]",
             "# ${3:Description}",
+            "## ${4:LLM instruction}",
             "$0"
         ],
         "description": "Create a context section with inheritance"
@@ -22,38 +24,100 @@
         "body": [
             "[${1:context-name}:${2:parent1},${3:parent2}]",
             "# ${4:Description}",
+            "## ${5:LLM instruction}",
             "$0"
         ],
         "description": "Create a context section with multiple inheritance"
+    },
+    "LLM Instruction": {
+        "prefix": "llm",
+        "body": "## ${1:LLM instruction for AI analysis}",
+        "description": "Add an LLM/AI instruction comment"
     },
     "Docs Only Context": {
         "prefix": "docs",
         "body": [
             "[docs-only]",
             "# Documentation files only",
+            "## Review this documentation for clarity and completeness",
+            "## Check for broken links and outdated information",
             "-**",
             "+*.md",
             "+docs/**"
         ],
         "description": "Documentation only context"
     },
-    "Python Signatures": {
+    "Security Review Context": {
+        "prefix": "security",
+        "body": [
+            "[security-review]",
+            "# Security-focused analysis",
+            "## This codebase represents a web application",
+            "## Focus on security vulnerabilities including SQL injection and XSS",
+            "## Pay special attention to authentication and authorization mechanisms",
+            "+*.py",
+            "+templates/*.html"
+        ],
+        "description": "Security review context with AI instructions"
+    },
+    "Python Signatures (CSV)": {
         "prefix": "sigs",
         "body": [
-            "@filter=signatures:^\\\\s*(class\\\\s+\\\\w+.*:|def\\\\s+\\\\w+.*:|async\\\\s+def\\\\s+\\\\w+.*:)",
+            "@filter=\"signatures\",\"^\\\\s*(class\\\\s+\\\\w+.*:|def\\\\s+\\\\w+.*:|async\\\\s+def\\\\s+\\\\w+.*:)\",\"*.py\"",
             "@output-line-numbers=false",
             "+*.py"
         ],
-        "description": "Python function and class signatures filter"
+        "description": "Python function and class signatures filter (CSV format)"
+    },
+    "Python Functions Filter (CSV)": {
+        "prefix": "funcs",
+        "body": "@filter=\"functions\",\"^\\\\s*(def\\\\s+\\\\w+.*:|async\\\\s+def\\\\s+\\\\w+.*:)\",\"*.py\"",
+        "description": "Filter for Python function definitions (CSV format)"
+    },
+    "Python Classes Filter (CSV)": {
+        "prefix": "classes",
+        "body": "@filter=\"classes\",\"^\\\\s*class\\\\s+\\\\w+.*:\",\"*.py\"",
+        "description": "Filter for Python class definitions (CSV format)"
+    },
+    "Python Imports Filter (CSV)": {
+        "prefix": "imports",
+        "body": "@filter=\"imports\",\"^\\\\s*(from\\\\s+\\\\w+.*import.*|import\\\\s+\\\\w+.*)\",\"*.py\"",
+        "description": "Filter for Python import statements (CSV format)"
+    },
+    "TODO Filter (CSV)": {
+        "prefix": "todos",
+        "body": "@filter=\"todos\",\"(TODO|FIXME|XXX|HACK|NOTE|WARNING)\"",
+        "description": "Filter for TODO comments (CSV format)"
+    },
+    "API Routes Filter (CSV)": {
+        "prefix": "routes",
+        "body": "@filter=\"routes\",\"@app\\\\.(get|post|put|delete)\",\"*.py\"",
+        "description": "Filter for API route definitions (CSV format)"
+    },
+    "SQL Queries Filter (CSV)": {
+        "prefix": "sql",
+        "body": "@filter=\"queries\",\"^\\\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP)\",\"*.sql\"",
+        "description": "Filter for SQL statements (CSV format)"
+    },
+    "Custom Filter (CSV)": {
+        "prefix": "filter",
+        "body": "@filter=\"${1:name}\",\"${2:regex}\",\"${3:*.py}\"",
+        "description": "Create a custom content filter (CSV format)"
+    },
+    "Legacy Filter": {
+        "prefix": "filterold",
+        "body": "@filter=${1:name}:${2:regex}",
+        "description": "Create a content filter (legacy format)"
     },
     "Backend Context with Inheritance": {
         "prefix": "backend",
         "body": [
             "[backend:default]",
             "# Backend code (inherits from default)",
+            "## Analyse backend code for performance and security issues",
             "+*.sql",
             "+migrations/**",
-            "@filter=functions:^\\\\s*(def\\\\s+\\\\w+.*:|async\\\\s+def\\\\s+\\\\w+.*:)"
+            "@filter=\"functions\",\"^\\\\s*(def\\\\s+\\\\w+.*:|async\\\\s+def\\\\s+\\\\w+.*:)\",\"*.py\""
         ],
         "description": "Backend context inheriting from default"
     },
@@ -62,12 +126,27 @@
         "body": [
             "[frontend:default]",
             "# Frontend code (inherits from default)",
+            "## Focus on component structure and state management",
             "+*.js",
+            "+*.jsx",
             "+*.vue",
             "+*.css",
             "+*.html"
         ],
         "description": "Frontend context inheriting from default"
+    },
+    "Full-Stack Context": {
+        "prefix": "fullstack",
+        "body": [
+            "[full:backend,frontend]",
+            "# Full-stack analysis (multiple inheritance)",
+            "## Perform comprehensive full-stack analysis",
+            "## Check integration between frontend and backend components",
+            "+*.md",
+            "+docs/**",
+            "@show-excluded=false"
+        ],
+        "description": "Full-stack context with multiple inheritance"
     },
     "Copy to Clipboard Option": {
         "prefix": "clip",
@@ -84,25 +163,15 @@
         "body": "@output-line-numbers=false",
         "description": "Disable line numbers"
     },
-    "Content Filter": {
-        "prefix": "filter",
-        "body": "@filter=${1:name}:${2:regex}",
-        "description": "Create a content filter"
+    "No Timestamps": {
+        "prefix": "notime",
+        "body": "@suppress-timestamps=true",
+        "description": "Suppress timestamps for reproducible builds"
     },
-    "Python Functions Filter": {
-        "prefix": "funcs",
-        "body": "@filter=functions:^\\\\s*(def\\\\s+\\\\w+.*:|async\\\\s+def\\\\s+\\\\w+.*:)",
-        "description": "Filter for Python function definitions"
-    },
-    "Python Classes Filter": {
-        "prefix": "classes",
-        "body": "@filter=classes:^\\\\s*class\\\\s+\\\\w+.*:",
-        "description": "Filter for Python class definitions"
-    },
-    "Python Imports Filter": {
-        "prefix": "imports",
-        "body": "@filter=imports:^\\\\s*(from\\\\s+\\\\w+.*import.*|import\\\\s+\\\\w+.*)",
-        "description": "Filter for Python import statements"
+    "Output Filename": {
+        "prefix": "outfile",
+        "body": "@output-filename=${1:results.txt}",
+        "description": "Specify output filename"
     },
     "Exclude All": {
         "prefix": "exclude",
@@ -114,6 +183,22 @@
         "body": "+*.py",
         "description": "Include Python files"
     },
+    "Include JavaScript": {
+        "prefix": "js",
+        "body": [
+            "+*.js",
+            "+*.jsx"
+        ],
+        "description": "Include JavaScript files"
+    },
+    "Include TypeScript": {
+        "prefix": "ts",
+        "body": [
+            "+*.ts",
+            "+*.tsx"
+        ],
+        "description": "Include TypeScript files"
+    },
     "Include Documentation": {
         "prefix": "md",
         "body": [
@@ -121,5 +206,47 @@
             "+docs/**"
         ],
         "description": "Include documentation files"
+    },
+    "Include Frontend": {
+        "prefix": "web",
+        "body": [
+            "+*.html",
+            "+*.css",
+            "+*.js",
+            "+*.jsx",
+            "+*.vue"
+        ],
+        "description": "Include common frontend files"
+    },
+    "Include Config Files": {
+        "prefix": "config",
+        "body": [
+            "+*.json",
+            "+*.yaml",
+            "+*.yml",
+            "+*.toml",
+            "+*.ini"
+        ],
+        "description": "Include configuration files"
+    },
+    "GitHub Workflows": {
+        "prefix": "github",
+        "body": "+.github/**",
+        "description": "Include GitHub workflows and actions"
+    },
+    "API Reference Context": {
+        "prefix": "api",
+        "body": [
+            "[api-reference]",
+            "# API reference documentation",
+            "## This output contains public API interfaces and documentation",
+            "## Focus on method signatures, parameters, and return types",
+            "@filter=\"public-classes\",\"^\\\\s*class\\\\s+[A-Z]\\\\w*.*:\",\"*.py\"",
+            "@filter=\"public-functions\",\"^\\\\s*def\\\\s+[a-z_]\\\\w*.*:\",\"*.py\"",
+            "@output-line-numbers=false",
+            "+README.md",
+            "+*.py"
+        ],
+        "description": "API reference context with public interface filters"
     }
 }

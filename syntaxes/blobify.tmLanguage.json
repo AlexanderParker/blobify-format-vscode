@@ -3,6 +3,9 @@
 	"name": "Blobify",
 	"patterns": [
 		{
+			"include": "#llm-instructions"
+		},
+		{
 			"include": "#comments"
 		},
 		{
@@ -22,11 +25,27 @@
 		}
 	],
 	"repository": {
+		"llm-instructions": {
+			"patterns": [
+				{
+					"name": "markup.heading.llm-instruction.blobify",
+					"match": "^\\s*(##)\\s*(.*)$",
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.comment.llm.blobify"
+						},
+						"2": {
+							"name": "entity.name.section.llm-instruction.blobify"
+						}
+					}
+				}
+			]
+		},
 		"comments": {
 			"patterns": [
 				{
 					"name": "comment.line.number-sign.blobify",
-					"match": "^\\s*#.*$"
+					"match": "^\\s*#(?!#).*$"
 				}
 			]
 		},
@@ -75,7 +94,24 @@
 		"options": {
 			"patterns": [
 				{
-					"name": "keyword.control.blobify",
+					"name": "keyword.control.filter-csv.blobify",
+					"match": "^\\s*@(filter)=(\"(?:[^\"\\\\]|\\\\.)*\"(?:\\s*,\\s*\"(?:[^\"\\\\]|\\\\.)*\"){1,2})\\s*$",
+					"captures": {
+						"1": {
+							"name": "variable.parameter.blobify"
+						},
+						"2": {
+							"name": "string.quoted.double.csv.blobify",
+							"patterns": [
+								{
+									"include": "#csv-filter-content"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "keyword.control.filter-legacy.blobify",
 					"match": "^\\s*@(filter)=([^:]+):(.+)\\s*$",
 					"captures": {
 						"1": {
@@ -96,7 +132,7 @@
 				},
 				{
 					"name": "keyword.control.blobify",
-					"match": "^\\s*@(copy-to-clipboard|debug|enable-scrubbing|output-line-numbers|output-index|output-content|output-metadata|show-excluded)=(true|false)\\s*$",
+					"match": "^\\s*@(copy-to-clipboard|debug|enable-scrubbing|output-line-numbers|output-index|output-content|output-metadata|show-excluded|suppress-timestamps)=(true|false)\\s*$",
 					"captures": {
 						"1": {
 							"name": "variable.parameter.blobify"
@@ -129,6 +165,27 @@
 							"name": "string.unquoted.blobify"
 						}
 					}
+				}
+			]
+		},
+		"csv-filter-content": {
+			"patterns": [
+				{
+					"name": "entity.name.function.filter-name.blobify",
+					"match": "\"([^\"]+)\""
+				},
+				{
+					"name": "string.regexp.filter-regex.blobify",
+					"match": "\"([^\"]+)\"",
+					"patterns": [
+						{
+							"include": "#regex-patterns"
+						}
+					]
+				},
+				{
+					"name": "string.glob.filter-filepattern.blobify",
+					"match": "\"([^\"]+)\""
 				}
 			]
 		},
@@ -170,7 +227,7 @@
 				},
 				{
 					"name": "constant.language.python-keywords.regex.blobify",
-					"match": "\\b(def|class|import|from|return|yield|async|await)\\b"
+					"match": "\\b(def|class|import|from|return|yield|async|await|TODO|FIXME|XXX|HACK|NOTE|WARNING)\\b"
 				}
 			]
 		},
