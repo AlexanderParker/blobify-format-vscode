@@ -20,7 +20,6 @@ export function activate(context: vscode.ExtensionContext) {
   // Register context inheritance completion provider
   const contextCompletionProvider = new BlobifyContextCompletionProvider();
   context.subscriptions.push(vscode.languages.registerCompletionItemProvider("blobify", contextCompletionProvider, ":", ","));
-
   // Register commands
   const formatCommand = vscode.commands.registerCommand("blobify.format", () => {
     const editor = vscode.window.activeTextEditor;
