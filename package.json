@@ -50,6 +50,15 @@
         }
       }
     ],
+    "completionItemProviders": [
+      {
+        "language": "blobify",
+        "triggerCharacters": [
+          ":",
+          ","
+        ]
+      }
+    ],
     "grammars": [
       {
         "language": "blobify",

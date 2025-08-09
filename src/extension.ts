@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { parse } from "csv-parse/sync";
+import { BlobifyContextCompletionProvider } from "./contextCompletion";
 
 export function activate(context: vscode.ExtensionContext) {
   console.log("Blobify language support is now active!");
@@ -15,6 +16,10 @@ export function activate(context: vscode.ExtensionContext) {
   // Register completion provider
   const completionProvider = new BlobifyCompletionProvider();
   context.subscriptions.push(vscode.languages.registerCompletionItemProvider("blobify", completionProvider, "@", "+", "-", "[", "#"));
+
+  // Register context inheritance completion provider
+  const contextCompletionProvider = new BlobifyContextCompletionProvider();
+  context.subscriptions.push(vscode.languages.registerCompletionItemProvider("blobify", contextCompletionProvider, ":", ","));
 
   // Register commands
   const formatCommand = vscode.commands.registerCommand("blobify.format", () => {
